@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>netcoreapp3.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Colorful.Console" Version="1.2.9" />
+      <PackageReference Include="Ninject" Version="4.0.0-beta-0134" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Abstractions\Interfaces" />
+      <Folder Include="Assets" />
+      <Folder Include="Components" />
+      <Folder Include="Entities" />
+      <Folder Include="Factories" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\DinoOtter\DinoOtter.csproj" />
+    </ItemGroup>
+
+</Project>

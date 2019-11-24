@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Breath", "Breath\Breath.csproj", "{4908F341-B1FD-4CB7-A391-68E4491A4951}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DinoOtter", "DinoOtter\DinoOtter.csproj", "{57A2F8DB-D24F-41B0-9A77-2E6A8C8E6A87}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4908F341-B1FD-4CB7-A391-68E4491A4951}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4908F341-B1FD-4CB7-A391-68E4491A4951}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4908F341-B1FD-4CB7-A391-68E4491A4951}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4908F341-B1FD-4CB7-A391-68E4491A4951}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57A2F8DB-D24F-41B0-9A77-2E6A8C8E6A87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57A2F8DB-D24F-41B0-9A77-2E6A8C8E6A87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57A2F8DB-D24F-41B0-9A77-2E6A8C8E6A87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57A2F8DB-D24F-41B0-9A77-2E6A8C8E6A87}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
