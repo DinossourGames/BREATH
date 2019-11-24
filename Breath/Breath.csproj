@@ -11,12 +11,24 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Assets" />
+      <Folder Include="DataStructs" />
       <Folder Include="Factories" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\DinoOtter\DinoOtter.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="Shaders\Frags\hover.frag">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Include="Assets\patricio.png">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </EmbeddedResource>
     </ItemGroup>
 
 </Project>

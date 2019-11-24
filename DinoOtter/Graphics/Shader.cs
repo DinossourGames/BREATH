@@ -204,7 +204,7 @@ namespace DinoOtter
         /// <param name="x">The value to set it to.</param>
         public void SetParameter(string name, float x)
         {
-            SFMLShader.SetUniform(name, x);
+            SFMLShader.SetParameter(name, x);
         }
 
         /// <summary>

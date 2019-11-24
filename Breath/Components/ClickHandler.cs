@@ -1,7 +1,7 @@
 ﻿using System;
 using Breath.Abstractions.Interfaces;
-using Breath.DataStructs;
 using DinoOtter;
+using Ninject;
 
 namespace Breath.Components
 {
@@ -11,8 +11,9 @@ namespace Breath.Components
         private bool _isPressed;
         private bool _isPressedLastFrame;
         private bool _isHovered;
-        public StateColors StateColors { get; set; }
         private Graphic _sprite;
+        private Graphic _shaderSprite = null;
+        private Shader _shader;
 
         public event Action<MouseButton> MouseClick = delegate { };
         public event Action OnHoverStartEvent = delegate { };
@@ -24,10 +25,12 @@ namespace Breath.Components
             MouseClick += OnClick;
             OnHoverStartEvent += OnHoverEnter;
             OnHoverEndEvent += OnHoverExit;
+            _shader = new Shader( "Shaders/Frags/hover.frag");
+
         }
 
 
-         public virtual void OnClick(MouseButton buttonPressed)
+        public virtual void OnClick(MouseButton buttonPressed)
         {
         }
 
@@ -51,22 +54,32 @@ namespace Breath.Components
 
             if (_isPressed)
             {
-                _sprite.Color = StateColors.ClickedColor ?? _sprite.Color;
+                _shader.SetParameter("alpha",.5f);
+
                 if (!_isPressedLastFrame)
                     MouseClick?.Invoke(_input.LastMouseButton);
             }
             else if (_isHovered)
-                _sprite.Color = StateColors.HoveredColor ?? _sprite.Color;
+                _shader.SetParameter("alpha", .3f);
             else
-                _sprite.Color = StateColors.DefaultColor ?? _sprite.Color;
+                _shader.SetParameter("alpha", 0f);
         }
 
 
         private void UpdateState()
         {
-            if(Entity.Graphic == null)
+            if (Entity.Graphic == null)
                 return;
+
+            _shaderSprite ??= Image.CreateRectangle(_sprite.Width, _sprite.Height, Color.White);
+            _shaderSprite.CenterOrigin();
             
+            if (!Entity.Graphics.Contains(_shaderSprite))
+            {
+                _shaderSprite.Shader = _shader;
+                Entity.AddGraphic(_shaderSprite);
+            }
+
             if (_input.MouseScreenX > Entity.X - _sprite.HalfWidth &&
                 _input.MouseScreenX < Entity.X + _sprite.HalfWidth &&
                 _input.MouseScreenY > Entity.Y - _sprite.HalfHeight &&

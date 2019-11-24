@@ -24,7 +24,7 @@ namespace Breath.Scenes
             var btn = new ButtonEntity(100, 100, 100, 100);
             btn.ClickHandler.MouseClick +=
                 button => _game.Color = Color.Random;
-            
+
             Add(btn);
         }
     }

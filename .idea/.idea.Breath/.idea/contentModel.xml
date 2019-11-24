@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
     <e p="C:\Users\felip\.Rider2019.2\system\extResources" t="IncludeRecursive" />
@@ -13,15 +13,15 @@
             <e p="IClickHandler.cs" t="Include" />
           </e>
         </e>
-        <e p="Assets" t="Include" />
+        <e p="Assets" t="Include">
+          <e p="patricio.png" t="Include" />
+        </e>
         <e p="bin" t="ExcludeRecursive" />
         <e p="Breath.csproj" t="IncludeRecursive" />
         <e p="Components" t="Include">
           <e p="ClickHandler.cs" t="Include" />
         </e>
-        <e p="DataStructs" t="Include">
-          <e p="StateColors.cs" t="Include" />
-        </e>
+        <e p="DataStructs" t="Include" />
         <e p="Entities" t="Include">
           <e p="ButtonEntity.cs" t="Include" />
         </e>
@@ -43,6 +43,11 @@
           <e p="InitialLogoScene.cs" t="Include" />
           <e p="Menu.cs" t="Include" />
           <e p="Options.cs" t="Include" />
+        </e>
+        <e p="Shaders" t="Include">
+          <e p="Frags" t="Include">
+            <e p="hover.frag" t="Include" />
+          </e>
         </e>
         <e p="Systems" t="Include">
           <e p="GameManager.cs" t="Include" />
