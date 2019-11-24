@@ -19,12 +19,11 @@ namespace Breath.Scenes
         public override void Start()
         {
             Console.WriteLine("Menu Loaded", System.Drawing.Color.Green);
-            _game.Color = Color.Gray;
-
-            var btn = new ButtonEntity(100, 100, 100, 100);
-            btn.ClickHandler.MouseClick +=
-                button => _game.Color = Color.Random;
-
+            _game.Color = Color.FromDraw(System.Drawing.Color.FromArgb(42, 42, 42));
+           var btn = new ButtonEntity(_game.HalfWidth, 150, 300,
+               100,System.Drawing.Color.Orchid);
+           btn.ClickHandler.MouseClick += button => btn.ClickHandler.Select();
+        
             Add(btn);
         }
     }

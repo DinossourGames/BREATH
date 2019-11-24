@@ -11,5 +11,6 @@ namespace Breath.Abstractions.Interfaces
         void OnClick(MouseButton buttonPressed);
         void OnHoverEnter();
         void OnHoverExit();
+        void Select();
     }
 }

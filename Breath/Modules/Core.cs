@@ -20,6 +20,7 @@ namespace Breath.Modules
             
             Bind<Game>().ToConstant(game);
             Bind<Input>().ToConstant(game.Input);
+            Bind<Coroutine>().ToConstant(game.Coroutine);
             Bind<IClickHandler>().To<ClickHandler>();
         }
     }

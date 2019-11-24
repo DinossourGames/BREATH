@@ -13,9 +13,7 @@
             <e p="IClickHandler.cs" t="Include" />
           </e>
         </e>
-        <e p="Assets" t="Include">
-          <e p="patricio.png" t="Include" />
-        </e>
+        <e p="Assets" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
         <e p="Breath.csproj" t="IncludeRecursive" />
         <e p="Components" t="Include">
@@ -24,8 +22,12 @@
         <e p="DataStructs" t="Include" />
         <e p="Entities" t="Include">
           <e p="ButtonEntity.cs" t="Include" />
+          <e p="ClickableText.cs" t="Include" />
         </e>
         <e p="Factories" t="Include" />
+        <e p="Fonts" t="Include">
+          <e p="BACKTO1982.TTF" t="Include" />
+        </e>
         <e p="Modules" t="Include">
           <e p="Core.cs" t="Include" />
           <e p="ScenesModule.cs" t="Include" />
@@ -46,8 +48,10 @@
         </e>
         <e p="Shaders" t="Include">
           <e p="Frags" t="Include">
+            <e p="Color.frag" t="Include" />
             <e p="hover.frag" t="Include" />
           </e>
+          <e p="Vertex" t="Include" />
         </e>
         <e p="Systems" t="Include">
           <e p="GameManager.cs" t="Include" />

@@ -9,9 +9,13 @@ namespace Breath
 {
     internal static class Program
     {
-        private static void Main(string[] args) => new GameManager(new StandardKernel(
-            new Core(),
-            new ScenesModule()
+        private static void Main(string[] args)
+        {
+            new GameManager(new StandardKernel(
+                new Core(),
+                new ScenesModule()
             )).Run();
+            
+        }
     }
 }

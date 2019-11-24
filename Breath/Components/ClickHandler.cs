@@ -1,5 +1,6 @@
 ﻿using System;
 using Breath.Abstractions.Interfaces;
+using Breath.Entities;
 using DinoOtter;
 using Ninject;
 
@@ -14,6 +15,7 @@ namespace Breath.Components
         private Graphic _sprite;
         private Graphic _shaderSprite = null;
         private Shader _shader;
+        private bool _isSelected;
 
         public event Action<MouseButton> MouseClick = delegate { };
         public event Action OnHoverStartEvent = delegate { };
@@ -25,10 +27,11 @@ namespace Breath.Components
             MouseClick += OnClick;
             OnHoverStartEvent += OnHoverEnter;
             OnHoverEndEvent += OnHoverExit;
-            _shader = new Shader( "Shaders/Frags/hover.frag");
-
+            _shader = new Shader("Shaders/Frags/hover.frag");
         }
 
+
+        public void Select() => _isSelected = !_isSelected;
 
         public virtual void OnClick(MouseButton buttonPressed)
         {
@@ -54,26 +57,27 @@ namespace Breath.Components
 
             if (_isPressed)
             {
-                _shader.SetParameter("alpha",.5f);
+                _shader.SetParameter("alpha", .5f);
 
                 if (!_isPressedLastFrame)
                     MouseClick?.Invoke(_input.LastMouseButton);
             }
             else if (_isHovered)
                 _shader.SetParameter("alpha", .3f);
+            else if (_isSelected)
+                _shader.SetParameter("alpha", .1f);
             else
                 _shader.SetParameter("alpha", 0f);
         }
-
 
         private void UpdateState()
         {
             if (Entity.Graphic == null)
                 return;
 
-            _shaderSprite ??= Image.CreateRectangle(_sprite.Width, _sprite.Height, Color.White);
+            _shaderSprite ??= Image.CreateRectangle(_sprite.Width , _sprite.Height , Color.White);
             _shaderSprite.CenterOrigin();
-            
+
             if (!Entity.Graphics.Contains(_shaderSprite))
             {
                 _shaderSprite.Shader = _shader;

@@ -11,8 +11,10 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Folder Include="Assets" />
       <Folder Include="DataStructs" />
       <Folder Include="Factories" />
+      <Folder Include="Shaders\Vertex" />
     </ItemGroup>
 
     <ItemGroup>
@@ -23,12 +25,12 @@
       <None Update="Shaders\Frags\hover.frag">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
-    </ItemGroup>
-
-    <ItemGroup>
-      <EmbeddedResource Include="Assets\patricio.png">
+      <None Update="Shaders\Frags\color.frag">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </EmbeddedResource>
+      </None>
+      <None Update="Fonts\BACKTO1982.TTF">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
 
 </Project>
