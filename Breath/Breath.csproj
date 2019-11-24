@@ -18,6 +18,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\DinoOtter\DinoOtter.csproj" />
+      <ProjectReference Include="..\DS4WindowsAPI\DS4WindowsAPI.csproj" />
     </ItemGroup>
 
     <ItemGroup>

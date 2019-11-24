@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Breath", "Breath\Breath.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DinoOtter", "DinoOtter\DinoOtter.csproj", "{57A2F8DB-D24F-41B0-9A77-2E6A8C8E6A87}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DS4WindowsAPI", "DS4WindowsAPI\DS4WindowsAPI.csproj", "{4BB4BAC4-0524-47AB-A35B-6A2B26248841}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{57A2F8DB-D24F-41B0-9A77-2E6A8C8E6A87}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{57A2F8DB-D24F-41B0-9A77-2E6A8C8E6A87}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{57A2F8DB-D24F-41B0-9A77-2E6A8C8E6A87}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4BB4BAC4-0524-47AB-A35B-6A2B26248841}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4BB4BAC4-0524-47AB-A35B-6A2B26248841}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4BB4BAC4-0524-47AB-A35B-6A2B26248841}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4BB4BAC4-0524-47AB-A35B-6A2B26248841}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

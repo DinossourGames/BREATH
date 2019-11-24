@@ -36,10 +36,11 @@ namespace Breath.DataStructs
         public T PreviousItem()
         {
             Items[_index].Select();
-            if (--_index  <= 0)
-                _index = Items.Count - 1;
-            else
-                _index--;
+            _index--;
+            
+            if (_index  < 0)
+                _index = Items.Count -1;
+        
             Items[_index].Select();
             return Items[_index];
         }
