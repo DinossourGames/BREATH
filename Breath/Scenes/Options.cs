@@ -19,7 +19,6 @@ namespace Breath.Scenes
         public override void Start()
         {
             _game.Color = Color.Magenta;
-            Console.WriteLine("Options Loaded",System.Drawing.Color.Green);
         }
 
         public override void Update()

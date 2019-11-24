@@ -15,7 +15,8 @@ namespace Breath.Modules
             {
                 Color = Color.FromDraw(System.Drawing.Color.FromArgb(52, 56, 69)),
                 MouseVisible = true,
-                FirstScene = SceneManager.FirstScene
+                FirstScene = SceneManager.FirstScene,
+                //EnableQuitButton = false
             };
             
             Bind<Game>().ToConstant(game);

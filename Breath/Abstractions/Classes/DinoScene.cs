@@ -1,6 +1,8 @@
 ﻿using System;
 using Breath.Systems;
 using DinoOtter;
+using Color = System.Drawing.Color;
+using Console = Colorful.Console;
 
 namespace Breath.Abstractions.Classes
 {
@@ -10,6 +12,7 @@ namespace Breath.Abstractions.Classes
         
         protected DinoScene(string name)
         {
+            Console.WriteLine($"Scene {name} Loaded Successfully",Color.Green);
             Name = name.Replace(" ","");
             SceneManager.AddScene(this);
         }

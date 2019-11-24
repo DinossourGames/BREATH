@@ -3,7 +3,7 @@ using DinoOtter;
 
 namespace Breath.Abstractions.Interfaces
 {
-    public interface IClickHandler : IDisposable
+    public interface IClickHandler : IDisposable, ISelectable
     {
         event Action<MouseButton> MouseClick;
         event Action OnHoverStartEvent;
@@ -11,6 +11,6 @@ namespace Breath.Abstractions.Interfaces
         void OnClick(MouseButton buttonPressed);
         void OnHoverEnter();
         void OnHoverExit();
-        void Select();
+        void PerformClick();
     }
 }

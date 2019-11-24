@@ -11,6 +11,7 @@
           </e>
           <e p="Interfaces" t="Include">
             <e p="IClickHandler.cs" t="Include" />
+            <e p="ISelectable.cs" t="Include" />
           </e>
         </e>
         <e p="Assets" t="Include" />
@@ -19,10 +20,11 @@
         <e p="Components" t="Include">
           <e p="ClickHandler.cs" t="Include" />
         </e>
-        <e p="DataStructs" t="Include" />
+        <e p="DataStructs" t="Include">
+          <e p="LoopList.cs" t="Include" />
+        </e>
         <e p="Entities" t="Include">
           <e p="ButtonEntity.cs" t="Include" />
-          <e p="ClickableText.cs" t="Include" />
         </e>
         <e p="Factories" t="Include" />
         <e p="Fonts" t="Include">

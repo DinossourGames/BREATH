@@ -31,11 +31,17 @@ namespace Breath.Components
         }
 
 
-        public void Select() => _isSelected = !_isSelected;
+        public void Select()
+        {
+            _isSelected = !_isSelected;
+        }
 
         public virtual void OnClick(MouseButton buttonPressed)
         {
+            Select();
         }
+
+        public void PerformClick() => MouseClick?.Invoke(MouseButton.Any);
 
         public virtual void OnHoverEnter()
         {
@@ -54,7 +60,6 @@ namespace Breath.Components
         public override void Update()
         {
             UpdateState();
-
             if (_isPressed)
             {
                 _shader.SetParameter("alpha", .5f);

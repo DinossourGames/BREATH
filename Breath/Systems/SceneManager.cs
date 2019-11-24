@@ -40,7 +40,7 @@ namespace Breath.Systems
 
         public static bool RemoveScene(string scene) => Scenes.Remove(scene);
 
-        public static void LoadScene(string name)
+        public static void KeepStateLoadScene(string name)
         {
             _game.RemoveScene();
             if (!Scenes.ContainsKey(name))
@@ -55,6 +55,22 @@ namespace Breath.Systems
             if (!_game.Scenes.Contains(ActiveScene))
                 _game.AddScene(ActiveScene);
             
+            _game.SwitchScene(ActiveScene);
+        }
+
+        public static void LoadScene(string name)
+        {
+
+            try
+            {
+                ActiveScene = _kernel.Get<DinoScene>(name);
+
+            }
+            catch 
+            {
+                ActiveScene = new DebugScene(_game,name);
+            }
+
             _game.SwitchScene(ActiveScene);
         }
     }

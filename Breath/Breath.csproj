@@ -12,7 +12,6 @@
 
     <ItemGroup>
       <Folder Include="Assets" />
-      <Folder Include="DataStructs" />
       <Folder Include="Factories" />
       <Folder Include="Shaders\Vertex" />
     </ItemGroup>

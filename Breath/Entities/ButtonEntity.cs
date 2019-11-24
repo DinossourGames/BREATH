@@ -8,7 +8,7 @@ using Color = System.Drawing.Color;
 
 namespace Breath.Entities
 {
-    public class ButtonEntity : Entity
+    public class ButtonEntity : Entity , ISelectable
     {
         public string Text
         {
@@ -58,9 +58,10 @@ namespace Breath.Entities
             
         }
 
+        
         IEnumerator DefineText()
         {
-            yield return _coroutine.WaitForFrames(10);
+            yield return _coroutine.WaitForFrames(3);
             _text.OffsetY = -2;
             AddGraphic(_text);
         }
@@ -69,5 +70,7 @@ namespace Breath.Entities
         {
             AddComponent((Component) ClickHandler);
         }
+
+        public void Select() => ClickHandler.Select();
     }
 }
