@@ -1,4 +1,6 @@
-﻿using Breath.Scenes;
+﻿using Breath.Abstractions.Interfaces;
+using Breath.Components;
+using Breath.Scenes;
 using Breath.Systems;
 using DinoOtter;
 using Ninject.Modules;
@@ -18,6 +20,7 @@ namespace Breath.Modules
             
             Bind<Game>().ToConstant(game);
             Bind<Input>().ToConstant(game.Input);
+            Bind<IClickHandler>().To<ClickHandler>();
         }
     }
 }

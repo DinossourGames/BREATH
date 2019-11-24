@@ -6,7 +6,7 @@ namespace Breath.Scenes
 {
     public class InitialLogoScene : DinoScene
     {
-        private float timer = 0;
+        private float _timer = 0;
 
         public InitialLogoScene() : base("START")
         {
@@ -15,13 +15,15 @@ namespace Breath.Scenes
         public override void Start()
         {
             Game.Instance.Color = Color.Black;
+           
         }
 
         public override void Update()
         {
-            timer += Game.Instance.RealDeltaTime;
             
-            if(timer > 5000)
+            _timer += Game.Instance.RealDeltaTime;
+            
+            if(_timer > 300)
                 SceneManager.LoadScene("Menu");
         }
     }

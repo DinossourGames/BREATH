@@ -9,13 +9,22 @@
           <e p="Classes" t="Include">
             <e p="DinoScene.cs" t="Include" />
           </e>
-          <e p="Interfaces" t="Include" />
+          <e p="Interfaces" t="Include">
+            <e p="IClickHandler.cs" t="Include" />
+          </e>
         </e>
         <e p="Assets" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
         <e p="Breath.csproj" t="IncludeRecursive" />
-        <e p="Components" t="Include" />
-        <e p="Entities" t="Include" />
+        <e p="Components" t="Include">
+          <e p="ClickHandler.cs" t="Include" />
+        </e>
+        <e p="DataStructs" t="Include">
+          <e p="StateColors.cs" t="Include" />
+        </e>
+        <e p="Entities" t="Include">
+          <e p="ButtonEntity.cs" t="Include" />
+        </e>
         <e p="Factories" t="Include" />
         <e p="Modules" t="Include">
           <e p="Core.cs" t="Include" />

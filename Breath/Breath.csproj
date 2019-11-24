@@ -11,10 +11,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Abstractions\Interfaces" />
       <Folder Include="Assets" />
-      <Folder Include="Components" />
-      <Folder Include="Entities" />
       <Folder Include="Factories" />
     </ItemGroup>
 

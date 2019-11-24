@@ -1,5 +1,5 @@
 ﻿using Breath.Abstractions.Classes;
-using Breath.Systems;
+using Breath.Entities;
 using Colorful;
 using DinoOtter;
 
@@ -10,7 +10,7 @@ namespace Breath.Scenes
         private Input _input;
         private Game _game;
 
-        public Menu(Input input,Game game) : base("Menu")
+        public Menu(Input input, Game game) : base("Menu")
         {
             _input = input;
             _game = game;
@@ -18,14 +18,14 @@ namespace Breath.Scenes
 
         public override void Start()
         {
-            Console.WriteLine("Menu Loaded",System.Drawing.Color.Green);
+            Console.WriteLine("Menu Loaded", System.Drawing.Color.Green);
             _game.Color = Color.Gray;
-        }
 
-        public override void Update()
-        {
-            if (_input.KeyPressed(Key.Space))
-                SceneManager.LoadScene("Options");
+            var btn = new ButtonEntity(100, 100, 100, 100);
+            btn.ClickHandler.MouseClick +=
+                button => _game.Color = Color.Random;
+            
+            Add(btn);
         }
     }
 }
