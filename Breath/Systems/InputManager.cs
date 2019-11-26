@@ -151,7 +151,8 @@ namespace Breath.Systems
                     CallAction(Select, "Select");
                     break;
                 case DS4Button.Square:
-                    Roll?.Invoke();
+                    Shoot?.Invoke();
+
                     break;
                 case DS4Button.Circle:
                     
@@ -168,7 +169,7 @@ namespace Breath.Systems
                 case DS4Button.L3:
                     break;
                 case DS4Button.R1:
-                    Shoot?.Invoke();
+                    Roll?.Invoke();
 
                     break;
                 case DS4Button.R3:

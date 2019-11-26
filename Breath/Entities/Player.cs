@@ -50,12 +50,12 @@ namespace Breath.Entities
             _manager = manager;
             _game = game;
             _coroutines = game.Coroutine;
-        
 
+            // _shader = new Shader(ShaderType.Fragment,BasePath.Shaders(false,"teste.frag"));
             _spritemap.Add(PlayerAnimation.Breath, "1,2,3,4,5,5,4,3,2,1", 4);
             _spritemap.Add(PlayerAnimation.Idle, "7,8,9,10,11,12", 4);
             _spritemap.Add(PlayerAnimation.Walk, "14,15,16,17,18,19,20,21,22,23,24", 4);
-            _spritemap.Add(PlayerAnimation.Roll, "26,27,28,29", 4);
+            _spritemap.Add(PlayerAnimation.Roll, "26,27,28,29", 4).NoRepeat();
             _spritemap.Add(PlayerAnimation.Run, "32,33,34,34,33,32", 4);
             _spritemap.Add(PlayerAnimation.Jumping, "36,37,38", 4);
             _spritemap.Add(PlayerAnimation.Falling, "38,37,36", 4);
@@ -68,9 +68,11 @@ namespace Breath.Entities
             AddCollider(_collider);
             _collider.CenterOrigin();
             Bind();
+
+            //_spritemap.Shader = _shader;
         }
 
-      
+
         private void Bind()
         {
             _manager.Move += Move;
@@ -83,13 +85,29 @@ namespace Breath.Entities
 
         private void Roll()
         {
+            if (!_isRolling)
+            {
+                _isRunning = false;
+                _coroutines.Start(RollAnim());
+            }
+        }
+
+        IEnumerator RollAnim()
+        {
+            _isRolling = true;
+            while (_spritemap.CurrentFrame < 29)
+            {
+                X += 30 * (_isFacingRight ? 1 : -1);
+                yield return _coroutines.WaitForFrames(1);
+            }
+            _isRolling = false;
         }
 
         public void Move(Vector2 input)
         {
             if (Math.Abs(input.X) > .3f)
             {
-                if (_isAttacking)
+                if (_isAttacking || _isRolling)
                 {
                     _isRunning = false;
                     _isWalking = false;
@@ -98,7 +116,8 @@ namespace Breath.Entities
                 {
                     if (Math.Abs(input.X) > .8f)
                     {
-                        _isRunning = true;
+                        if (!_isRolling)
+                            _isRunning = true;
                         _isWalking = false;
                     }
 
@@ -121,10 +140,14 @@ namespace Breath.Entities
                     _spritemap.FlippedX = true;
                 }
 
-                X += input.X;
+                if (!_isRolling)
+                    X += input.X;
             }
             else
+            {
                 _isWalking = false;
+                _isRunning = false;
+            }
         }
 
         private void PlayAnim(PlayerAnimation anim)
@@ -146,8 +169,7 @@ namespace Breath.Entities
         {
         }
 
-        private int atackRange = 0;
-
+        
         public void Shoot()
         {
             if (!_isAttacking)
@@ -167,7 +189,6 @@ namespace Breath.Entities
 
         public override void Update()
         {
-
             if (_isBreathing)
                 PlayAnim(PlayerAnimation.Breath);
             if (_isWalking)

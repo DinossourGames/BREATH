@@ -25,7 +25,7 @@ namespace Breath.Scenes
             _game = game;
             _manager = manager;
             _soundSystem = soundSystem;
-            _player = new Player(manager,game,game.HalfWidth,game.HalfHeight);
+            _player = new Player(manager,game,game.HalfWidth,game.HalfHeight,10);
             _color = Color.Black;
            Add(_player);
         
