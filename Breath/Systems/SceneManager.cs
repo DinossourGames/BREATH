@@ -64,7 +64,6 @@ namespace Breath.Systems
             try
             {
                 ActiveScene = _kernel.Get<DinoScene>(name);
-
             }
             catch 
             {

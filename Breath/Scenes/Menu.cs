@@ -20,9 +20,11 @@ namespace Breath.Scenes
         private Key _selectKey;
         private InputManager _manager;
         private Coroutine _coroutine;
+        private SoundSystem _soundSystem;
 
-        public Menu(Input input, Game game,InputManager manager,Coroutine coroutine) : base("Menu")
+        public Menu(Input input, Game game,InputManager manager,Coroutine coroutine,SoundSystem soundSystem) : base("Menu")
         {
+            _soundSystem = soundSystem;
             _input = input;
             _game = game;
             _manager = manager;
@@ -56,11 +58,11 @@ namespace Breath.Scenes
             _game.Color = Color.FromDraw(System.Drawing.Color.FromArgb(42, 42, 42));
             _selectKey = Key.Return;
             
-           var btnStart = new ButtonEntity(_game.HalfWidth, 300,null,null,"Start");
-           var btnOptions = new ButtonEntity(_game.HalfWidth, 400,null,null,"Options");
-           var btnQuit = new ButtonEntity(_game.HalfWidth, 500,null,null,"Quit");
+           var btnStart = new ButtonEntity(_game.HalfWidth, _game.HalfHeight - 100,null,null,"Start");
+           var btnOptions = new ButtonEntity(_game.HalfWidth, _game.HalfHeight,null,null,"Options");
+           var btnQuit = new ButtonEntity(_game.HalfWidth, _game.HalfHeight + 100,null,null,"Quit");
 
-           btnStart.ClickHandler.MouseClick += button => SceneManager.LoadScene("Scene1"); 
+           btnStart.ClickHandler.MouseClick += button => SceneManager.LoadScene("SceneOne"); 
            btnOptions.ClickHandler.MouseClick += button => SceneManager.LoadScene("Options"); 
            btnQuit.ClickHandler.MouseClick += button => _game.Close();
            

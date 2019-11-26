@@ -12,14 +12,25 @@
           <e p="Interfaces" t="Include">
             <e p="IClickHandler.cs" t="Include" />
             <e p="IControlBinds.cs" t="Include" />
+            <e p="IGameplayBinds.cs" t="Include" />
             <e p="IMenuBindings.cs" t="Include" />
             <e p="ISelectable.cs" t="Include" />
           </e>
         </e>
-        <e p="Assets" t="Include" />
+        <e p="Assets" t="Include">
+          <e p="Images" t="Include">
+            <e p="logo.png" t="Include" />
+            <e p="main.png" t="Include" />
+          </e>
+          <e p="Sounds" t="Include">
+            <e p="main.wav" t="Include" />
+          </e>
+        </e>
         <e p="bin" t="ExcludeRecursive" />
         <e p="Breath.csproj" t="IncludeRecursive" />
+        <e p="Breath.csproj.DotSettings" t="Include" />
         <e p="Components" t="Include">
+          <e p="ClampComponent.cs" t="Include" />
           <e p="ClickHandler.cs" t="Include" />
           <e p="DinoInput.cs" t="Include" />
         </e>
@@ -28,6 +39,8 @@
         </e>
         <e p="Entities" t="Include">
           <e p="ButtonEntity.cs" t="Include" />
+          <e p="Player.cs" t="Include" />
+          <e p="Square.cs" t="Include" />
         </e>
         <e p="Enums" t="Include">
           <e p="DS4Button.cs" t="Include" />
@@ -53,10 +66,11 @@
           <e p="InitialLogoScene.cs" t="Include" />
           <e p="Menu.cs" t="Include" />
           <e p="Options.cs" t="Include" />
+          <e p="SceneOne.cs" t="Include" />
         </e>
         <e p="Shaders" t="Include">
           <e p="Frags" t="Include">
-            <e p="Color.frag" t="Include" />
+            <e p="colors.frag" t="Include" />
             <e p="hover.frag" t="Include" />
           </e>
           <e p="Vertex" t="Include" />
@@ -65,6 +79,10 @@
           <e p="GameManager.cs" t="Include" />
           <e p="InputManager.cs" t="Include" />
           <e p="SceneManager.cs" t="Include" />
+          <e p="SoundSystem.cs" t="Include" />
+        </e>
+        <e p="Utils" t="Include">
+          <e p="BasePath.cs" t="Include" />
         </e>
       </e>
       <e p="Breath.sln" t="IncludeFlat" />

@@ -12,7 +12,7 @@ namespace Breath.Modules
     {
         public override void Load()
         {
-            var game = new Game("BREATH",1280,720,60,false)
+            var game = new Game("BREATH",1920,1080,60,false)
             {
                 Color = Color.FromDraw(System.Drawing.Color.FromArgb(52, 56, 69)),
                 MouseVisible = true,
@@ -24,6 +24,8 @@ namespace Breath.Modules
             Bind<Input>().ToConstant(game.Input);
             Bind<Coroutine>().ToConstant(game.Coroutine);
             Bind<InputManager>().ToConstant(new InputManager(game, game.Input));
+            Bind<SoundSystem>().ToConstant(new SoundSystem(game));
+            
             Bind<IClickHandler>().To<ClickHandler>();
         }
     }

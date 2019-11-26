@@ -20,10 +20,13 @@ namespace Breath.Systems
 
         public event Action<Vector2> Move = delegate { };
         public event Action<Vector2> Breath = delegate { };
-        public event Action Jump = delegate { };
+        public event Action Jump = delegate { };       
+        public event Action JumpRelease = delegate { };
         public event Action Interact = delegate { };
         public event Action Shoot = delegate { };
-
+        public event Action ShootRelease = delegate { };
+        
+        public event Action Roll = delegate { };
 
         private DS4Device device = null;
 
@@ -38,7 +41,7 @@ namespace Breath.Systems
             _game = game;
             _input = input;
             _game.OnUpdate += Update;
-           FindController();
+            FindController();
         }
 
         private void FindController()
@@ -82,17 +85,22 @@ namespace Breath.Systems
 
             var current = state.GetType().GetFields().Where(field => field.FieldType == typeof(bool))
                 .ToDictionary(field => field.Name, field => (bool) field.GetValue(state));
+            
             var previous = state.GetType().GetFields().Where(field => field.FieldType == typeof(bool))
                 .ToDictionary(field => field.Name, field => (bool) field.GetValue(previousState));
 
             var activeCurrent = current.Where(val => val.Value).ToDictionary(i => i.Key, i => i.Value);
-            var activePrevious = previous.Where(val => val.Value).ToDictionary(i => i.Key, i => i.Value);
+            var activePrevious = previous.Where(val => val.Value).ToDictionary(i => i.Key, i => i.Value); 
+            
+            var inativeCurrent = current.Where(val => !val.Value).ToDictionary(i => i.Key, i => i.Value);
+            var inactivePrevious = previous.Where(val => !val.Value).ToDictionary(i => i.Key, i => i.Value);
 
             var l3 = GetNormalized(state.LX, state.LY);
             var l3P = GetNormalized(previousState.LX, previousState.LY);
 
             Move?.Invoke(l3);
-            Breath?.Invoke(new Vector2(state.L2, state.R2));
+
+            if(state.L2Btn || state.R2Btn)Breath?.Invoke(new Vector2(state.L2, state.R2));
 
             //Move Up
             if (l3.Y > .5f)
@@ -103,9 +111,33 @@ namespace Breath.Systems
                 if (l3P.Y > -.5)
                     Previous?.Invoke();
 
+            OnButtonPressedEvent(sender, state);
+
             foreach (var c in activeCurrent.Where(c => !activePrevious.ContainsKey(c.Key)))
                 if (CanReceiveInput)
+                {
                     OnOnButtonClickEvent(sender, state, c.Key);
+                }
+
+            foreach (var c in inativeCurrent.Where(c => activePrevious.ContainsKey(c.Key)))
+                if (CanReceiveInput)
+                {
+                    OnButtonClickEvent(sender, state, c.Key);
+                }
+            
+        }
+
+        private void OnButtonClickEvent(DS4Device sender, DS4State state, string cKey)
+        {
+             var chave = Enum.TryParse(cKey, out DS4Button button);
+             if (!chave) return;
+        }
+
+        private void OnButtonPressedEvent(DS4Device sender, DS4State state)
+        {
+            if(state.Cross)
+                Jump?.Invoke();
+            
         }
 
 
@@ -119,8 +151,10 @@ namespace Breath.Systems
                     CallAction(Select, "Select");
                     break;
                 case DS4Button.Square:
+                    Roll?.Invoke();
                     break;
                 case DS4Button.Circle:
+                    
                     break;
                 case DS4Button.Triangle:
                     break;
@@ -134,6 +168,8 @@ namespace Breath.Systems
                 case DS4Button.L3:
                     break;
                 case DS4Button.R1:
+                    Shoot?.Invoke();
+
                     break;
                 case DS4Button.R3:
                     break;
@@ -179,16 +215,16 @@ namespace Breath.Systems
                 Shoot?.Invoke();
             if (_input.KeyPressed(Key.F))
                 Interact?.Invoke();
-            
+
             if (_input.KeyPressed(Key.Down))
                 Previous?.Invoke();
             if (_input.KeyPressed(Key.Up))
                 Next?.Invoke();
-            
+
             if (_input.KeyPressed(Key.Escape))
                 CallAction(Menu, "Menu");
             if (_input.KeyPressed(Key.P))
-                CallAction(Pause, "Pause");    
+                CallAction(Pause, "Pause");
             if (_input.KeyPressed(Key.Return))
                 CallAction(Select, "Select");
         }
@@ -224,6 +260,22 @@ namespace Breath.Systems
                 array.Y = (y - 125) / (255f - 125f) * -1f < -deadZone ? (y - 125) / (255f - 125f) * -1f : 0;
 
             return array;
+        }
+
+
+        public void Rumble(byte left, byte right)
+        {
+            device.setRumble(right, left);
+        }
+
+        public void StopRumble()
+        {
+            device.setRumble(0, 0);
+        }
+
+        public void SetLightbar(Color color)
+        {
+            device.LightBarColor = new DS4Color(color);
         }
     }
 }
