@@ -37,7 +37,7 @@ namespace Breath.Scenes
             _color = Color.Black;
 
             var _ground = new Ground(game.HalfWidth, game.Height - 50, game.Width, 50);
-            var trigger = new Square(900,900,50,50,System.Drawing.Color.Transparent,game,First());
+            var trigger = new Square(900,900,50,50,System.Drawing.Color.Transparent,game,First(),manager);
             //var trigger2 = new Square(1900,900,50,50,System.Drawing.Color.Transparent,game,LoadSeccond());
 
             var bg = new Image(BasePath.Images("trees.png"));
@@ -61,6 +61,7 @@ namespace Breath.Scenes
             Add(trigger);
          //   Add(trigger2);
 
+         CameraFocus = _player;
 
 
         }
@@ -73,16 +74,8 @@ namespace Breath.Scenes
         IEnumerator First()
         {
 
-            while (true)
-            {
-                yield return _coroutine.WaitForSeconds(3);
+        yield return _coroutine.WaitForFrames(1);
 
-                var dialog = new Dialogue(_game.HalfWidth, 50, 500, 200, "Respira", Color.Random);
-                Add(dialog);
-
-                yield return _coroutine.WaitForSeconds(3);
-                Remove(dialog);
-            }
         }
         public override void Update()
         {

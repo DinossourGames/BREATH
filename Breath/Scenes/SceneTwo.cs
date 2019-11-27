@@ -28,8 +28,8 @@ namespace Breath.Scenes
             _color = Color.Black;
 
             var _ground = new Ground(game.HalfWidth, game.Height - 50, game.Width, 50);
-            var trigger = new Square(900,900,50,50,System.Drawing.Color.Transparent,game,First());
-            var trigger2 = new Square(1900,900,50,50,System.Drawing.Color.Transparent,game,LoadSeccond());
+//            var trigger = new Square(900,900,50,50,System.Drawing.Color.Transparent,game,First());
+//            var trigger2 = new Square(1900,900,50,50,System.Drawing.Color.Transparent,game,LoadSeccond());
 
             var bg = new Image(BasePath.Images("trees.png"));
             var bg1 = new Image(BasePath.Images("bgCave.jpg"));
@@ -48,9 +48,9 @@ namespace Breath.Scenes
             AddGraphic(land);
 
             Add(_ground);
-            Add(_player);
-            Add(trigger);
-            Add(trigger2);
+//            Add(_player);
+//            Add(trigger);
+//            Add(trigger2);
         }
         
         IEnumerator LoadSeccond()

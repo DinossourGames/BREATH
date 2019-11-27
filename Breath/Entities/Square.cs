@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Breath.Enums;
+using Breath.Systems;
 using DinoOtter;
 
 namespace Breath.Entities
@@ -12,9 +13,11 @@ namespace Breath.Entities
         private BoxCollider _collider;
         private Coroutine _coroutine;
         private IEnumerator _playable;
+        private InputManager _manager;
 
-        public Square(float x, float y, int w, int h, System.Drawing.Color color,Game game,IEnumerator playable) : base(x, y)
+        public Square(float x, float y, int w, int h, System.Drawing.Color color,Game game,IEnumerator playable,InputManager manager) : base(x, y)
         {
+            _manager = manager;
             _game = game;
             _playable = playable;
             _coroutine = _game.Coroutine;
@@ -28,10 +31,15 @@ namespace Breath.Entities
 
         public override void Update()
         {
-            if (_collider.Overlap(X, Y, Tags.Player) && !locker)
+            if (_collider.Overlap(X, Y, Tags.Player))
             {
                 locker = true;
-                _coroutine.Start(_playable);
+               // _coroutine.Start(_playable);
+                _manager.Rumble(255,255);
+            }
+            else
+            {
+                _manager.StopRumble();
             }
         }
 
