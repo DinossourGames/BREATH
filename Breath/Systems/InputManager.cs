@@ -103,10 +103,8 @@ namespace Breath.Systems
             var l3 = GetNormalized(state.LX, state.LY);
             var l3P = GetNormalized(previousState.LX, previousState.LY);
 
-            if (l3 == l3P)
-                MoveRelease?.Invoke();
-            else
-                Move?.Invoke(l3);
+
+            Move?.Invoke(l3);
 
 
             if (state.L2Btn || state.R2Btn) Breath?.Invoke(new Vector2(state.L2, state.R2));
@@ -173,16 +171,14 @@ namespace Breath.Systems
                 case DS4Button.DpadDown:
                     break;
             }
-            
         }
 
         private void OnButtonPressedEvent(DS4Device sender, DS4State state)
         {
-            if (state.Cross)
-                Jump?.Invoke();
-            
-            if (!state.Cross)
-                JumpRelease?.Invoke();
+//            if (state.Cross)
+//
+//            if (!state.Cross)
+//                JumpRelease?.Invoke();
         }
 
 
@@ -194,6 +190,8 @@ namespace Breath.Systems
             {
                 case DS4Button.Cross:
                     CallAction(Select, "Select");
+                    Jump?.Invoke();
+
                     break;
                 case DS4Button.Square:
                     Attack?.Invoke();

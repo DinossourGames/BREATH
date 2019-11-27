@@ -1,34 +1,25 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using Breath.Abstractions.Classes;
-using Breath.Abstractions.Interfaces;
-using Breath.Components;
 using Breath.Entities;
-using Breath.Enums;
 using Breath.Systems;
 using Breath.Utils;
 using DinoOtter;
-using SFML.Graphics;
-using SFML.System;
-using Color = DinoOtter.Color;
-using Image = DinoOtter.Image;
 
 namespace Breath.Scenes
 {
-    public class SceneOne : DinoScene
+    public class SceneTwo : DinoScene
     {
-        private Game _game;
         private InputManager _manager;
+        private Game _game;
+        private Coroutine _coroutine;
+        private SoundSystem _soundSystem;
         private Player _player;
         private Color _color;
-        private SoundSystem _soundSystem;
-        private Coroutine _coroutine;
-        private DinoOtter.Color _color1;
 
-
-        public SceneOne(Game game, InputManager manager, Coroutine coroutine, SoundSystem soundSystem) : base(
-            "SceneOne")
+        public SceneTwo(Game game, InputManager manager, Coroutine coroutine, SoundSystem soundSystem) : base("SceneTwo")
         {
+            
+            
             _game = game;
             _manager = manager;
             _coroutine = coroutine;
@@ -38,10 +29,10 @@ namespace Breath.Scenes
 
             var _ground = new Ground(game.HalfWidth, game.Height - 50, game.Width, 50);
             var trigger = new Square(900,900,50,50,System.Drawing.Color.Transparent,game,First());
-            //var trigger2 = new Square(1900,900,50,50,System.Drawing.Color.Transparent,game,LoadSeccond());
+            var trigger2 = new Square(1900,900,50,50,System.Drawing.Color.Transparent,game,LoadSeccond());
 
             var bg = new Image(BasePath.Images("trees.png"));
-            var bg1 = new Image(BasePath.Images("Sky.png"));
+            var bg1 = new Image(BasePath.Images("bgCave.jpg"));
             var land = new Image(BasePath.Images("land1.png"));
 
             land.Scale = 10;
@@ -59,12 +50,9 @@ namespace Breath.Scenes
             Add(_ground);
             Add(_player);
             Add(trigger);
-         //   Add(trigger2);
-
-
-
+            Add(trigger2);
         }
-
+        
         IEnumerator LoadSeccond()
         {
             SceneManager.LoadScene("SceneTwo");
@@ -72,27 +60,24 @@ namespace Breath.Scenes
         }
         IEnumerator First()
         {
+           // var dialog = new Dialogue(_game.HalfWidth, 50, 500, 200, "Respira");
+       //     Add(dialog);
 
-            while (true)
+            _player._isBreathing = true;
+            _player.canMove = false;
+            
+            for (int i = 0; i < 16; i++)
             {
-                yield return _coroutine.WaitForSeconds(3);
-
-                var dialog = new Dialogue(_game.HalfWidth, 50, 500, 200, "Respira", Color.Random);
-                Add(dialog);
-
-                yield return _coroutine.WaitForSeconds(3);
-                Remove(dialog);
+                CameraZoom += .001f;
+                yield return _coroutine.WaitForFrames(2);
             }
-        }
-        public override void Update()
-        {
             
-        }
+            yield return _coroutine.WaitForSeconds(3);
+         //   Remove(dialog);
+            _player._isBreathing = false;
+            _player.canMove = true;
 
-      
-        public override void Render()
-        {
-            
         }
+        
     }
 }

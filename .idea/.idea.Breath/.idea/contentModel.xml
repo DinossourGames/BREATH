@@ -19,8 +19,15 @@
         </e>
         <e p="Assets" t="Include">
           <e p="Images" t="Include">
+            <e p="bgCave.jpg" t="Include" />
+            <e p="land1.png" t="Include" />
+            <e p="land2.png" t="Include" />
             <e p="logo.png" t="Include" />
             <e p="main.png" t="Include" />
+            <e p="Sky.png" t="Include" />
+            <e p="Stars.png" t="Include" />
+            <e p="trees.png" t="Include" />
+            <e p="trees1.jpg" t="Include" />
           </e>
           <e p="Sounds" t="Include">
             <e p="main.wav" t="Include" />
@@ -39,11 +46,16 @@
         </e>
         <e p="Entities" t="Include">
           <e p="ButtonEntity.cs" t="Include" />
+          <e p="Dialogue.cs" t="Include" />
+          <e p="Ground.cs" t="Include" />
           <e p="Player.cs" t="Include" />
+          <e p="PlayerAnimation.cs" t="Include" />
           <e p="Square.cs" t="Include" />
         </e>
         <e p="Enums" t="Include">
           <e p="DS4Button.cs" t="Include" />
+          <e p="PlayerAnimations.cs" t="Include" />
+          <e p="Tags.cs" t="Include" />
         </e>
         <e p="Factories" t="Include" />
         <e p="Fonts" t="Include">
@@ -67,11 +79,13 @@
           <e p="Menu.cs" t="Include" />
           <e p="Options.cs" t="Include" />
           <e p="SceneOne.cs" t="Include" />
+          <e p="SceneTwo.cs" t="Include" />
         </e>
         <e p="Shaders" t="Include">
           <e p="Frags" t="Include">
             <e p="colors.frag" t="Include" />
             <e p="hover.frag" t="Include" />
+            <e p="teste.frag" t="Include" />
           </e>
           <e p="Vertex" t="Include" />
         </e>
