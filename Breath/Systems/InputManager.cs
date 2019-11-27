@@ -19,14 +19,19 @@ namespace Breath.Systems
         public event Action Pause = delegate { };
 
         public event Action<Vector2> Move = delegate { };
+        public event Action MoveRelease = delegate { };
         public event Action<Vector2> Breath = delegate { };
-        public event Action Jump = delegate { };       
+        public event Action BreathRelease = delegate { };
+
+        public event Action Jump = delegate { };
         public event Action JumpRelease = delegate { };
         public event Action Interact = delegate { };
-        public event Action Shoot = delegate { };
+        public event Action Attack = delegate { };
         public event Action ShootRelease = delegate { };
-        
+
         public event Action Roll = delegate { };
+        public event Action RollRelease = delegate { };
+
 
         private DS4Device device = null;
 
@@ -85,22 +90,27 @@ namespace Breath.Systems
 
             var current = state.GetType().GetFields().Where(field => field.FieldType == typeof(bool))
                 .ToDictionary(field => field.Name, field => (bool) field.GetValue(state));
-            
+
             var previous = state.GetType().GetFields().Where(field => field.FieldType == typeof(bool))
                 .ToDictionary(field => field.Name, field => (bool) field.GetValue(previousState));
 
             var activeCurrent = current.Where(val => val.Value).ToDictionary(i => i.Key, i => i.Value);
-            var activePrevious = previous.Where(val => val.Value).ToDictionary(i => i.Key, i => i.Value); 
-            
+            var activePrevious = previous.Where(val => val.Value).ToDictionary(i => i.Key, i => i.Value);
+
             var inativeCurrent = current.Where(val => !val.Value).ToDictionary(i => i.Key, i => i.Value);
             var inactivePrevious = previous.Where(val => !val.Value).ToDictionary(i => i.Key, i => i.Value);
 
             var l3 = GetNormalized(state.LX, state.LY);
             var l3P = GetNormalized(previousState.LX, previousState.LY);
 
-            Move?.Invoke(l3);
+            if (l3 == l3P)
+                MoveRelease?.Invoke();
+            else
+                Move?.Invoke(l3);
 
-            if(state.L2Btn || state.R2Btn)Breath?.Invoke(new Vector2(state.L2, state.R2));
+
+            if (state.L2Btn || state.R2Btn) Breath?.Invoke(new Vector2(state.L2, state.R2));
+            else BreathRelease?.Invoke();
 
             //Move Up
             if (l3.Y > .5f)
@@ -122,22 +132,57 @@ namespace Breath.Systems
             foreach (var c in inativeCurrent.Where(c => activePrevious.ContainsKey(c.Key)))
                 if (CanReceiveInput)
                 {
-                    OnButtonClickEvent(sender, state, c.Key);
+                    OnReleaseClickEvent(sender, state, c.Key);
                 }
-            
         }
 
-        private void OnButtonClickEvent(DS4Device sender, DS4State state, string cKey)
+
+        private void OnReleaseClickEvent(DS4Device sender, DS4State state, string cKey)
         {
-             var chave = Enum.TryParse(cKey, out DS4Button button);
-             if (!chave) return;
+            var chave = Enum.TryParse(cKey, out DS4Button button);
+            if (!chave) return;
+
+            switch (button)
+            {
+                case DS4Button.Cross:
+                    break;
+                case DS4Button.Square:
+                    break;
+                case DS4Button.Circle:
+                    break;
+                case DS4Button.Triangle:
+                    break;
+                case DS4Button.Options:
+                    break;
+                case DS4Button.Share:
+                    break;
+                case DS4Button.L1:
+                    break;
+                case DS4Button.L3:
+                    break;
+                case DS4Button.R1:
+                    break;
+                case DS4Button.R3:
+                    break;
+                case DS4Button.DpadLeft:
+                    break;
+                case DS4Button.DpadUp:
+                    break;
+                case DS4Button.DpadRight:
+                    break;
+                case DS4Button.DpadDown:
+                    break;
+            }
+            
         }
 
         private void OnButtonPressedEvent(DS4Device sender, DS4State state)
         {
-            if(state.Cross)
+            if (state.Cross)
                 Jump?.Invoke();
             
+            if (!state.Cross)
+                JumpRelease?.Invoke();
         }
 
 
@@ -151,11 +196,9 @@ namespace Breath.Systems
                     CallAction(Select, "Select");
                     break;
                 case DS4Button.Square:
-                    Shoot?.Invoke();
-
+                    Attack?.Invoke();
                     break;
                 case DS4Button.Circle:
-                    
                     break;
                 case DS4Button.Triangle:
                     break;
@@ -170,7 +213,6 @@ namespace Breath.Systems
                     break;
                 case DS4Button.R1:
                     Roll?.Invoke();
-
                     break;
                 case DS4Button.R3:
                     break;
@@ -213,7 +255,7 @@ namespace Breath.Systems
             if (_input.KeyPressed(Key.Space))
                 Jump?.Invoke();
             if (_input.KeyDown(Key.J))
-                Shoot?.Invoke();
+                Attack?.Invoke();
             if (_input.KeyPressed(Key.F))
                 Interact?.Invoke();
 
