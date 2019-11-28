@@ -13,7 +13,8 @@ namespace Breath.Entities
 {
     public class Player : Entity, IGameplayBinds
     {
-        public Spritemap<PlayerAnimation> _spritemap = new Spritemap<PlayerAnimation>(BasePath.Images("main.png"), 32, 32);
+        public Spritemap<PlayerAnimation> _spritemap =
+            new Spritemap<PlayerAnimation>(BasePath.Images("main.png"), 32, 32);
 
 
         private InputManager _manager;
@@ -44,7 +45,6 @@ namespace Breath.Entities
                 Tags.Player);
             Collider.CenterOrigin();
             Bind();
-            
         }
 
         private void Initialize(float scale)
@@ -97,8 +97,6 @@ namespace Breath.Entities
 
         public void Move(Vector2 input)
         {
-            
-            
             if (Math.Abs(input.X) > .3f || Math.Abs(input.Y) > .3f)
             {
                 if (_isAttacking || _isRolling || _isJumping)
@@ -133,7 +131,7 @@ namespace Breath.Entities
             {
                 VelocityX = 0;
                 VelocityY = 0;
-                
+
                 _isWalking = false;
                 _isRunning = false;
             }
@@ -204,10 +202,10 @@ namespace Breath.Entities
         IEnumerator Attack()
         {
             _isAttacking = true;
-          
-            
-             yield return _coroutines.WaitForFrames(8);
-            
+
+
+            yield return _coroutines.WaitForFrames(8);
+
 
             _isAttacking = false;
         }
@@ -226,17 +224,22 @@ namespace Breath.Entities
         }
 
         private bool locker;
+
         public override void UpdateFirst()
         {
-            if (Collider.Overlap(X, Y +10f, Tags.Ground) && !locker)
+            if (Collider.Overlap(X, Y + 10f, Tags.Ground) && !locker)
                 IsGrounded = true;
         }
 
         public override void Update()
         {
-           // Gravity();
-           Y += VelocityY * _game.DeltaTime * Speed;
-           X += VelocityX * _game.DeltaTime  * Speed;
+            //Limitar tela
+
+
+            // Gravity();
+            Y = Math.Clamp(Y + VelocityY * _game.DeltaTime * Speed, _spritemap.ScaledHeight / 2 , _game.Height - _spritemap.ScaledHeight / 2);
+            X = Math.Clamp(X + VelocityX * _game.DeltaTime * Speed, 0 , _game.Width );
+
             if (_isBreathing)
                 PlayAnim(PlayerAnimation.Breath);
             if (_isWalking)
@@ -246,7 +249,7 @@ namespace Breath.Entities
             if (_isRunning)
                 PlayAnim(PlayerAnimation.Run);
             if (_isAttacking)
-                PlayAnim(PlayerAnimation.Attacking);    
+                PlayAnim(PlayerAnimation.Attacking);
             if (_isJumping)
                 PlayAnim(PlayerAnimation.Jumping);
 
@@ -260,7 +263,7 @@ namespace Breath.Entities
 
             if (IsGrounded)
                 locker = true;
-            
+
             if (JumpPressed && IsGrounded)
             {
                 JumpPressed = false;

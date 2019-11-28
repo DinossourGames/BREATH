@@ -8,11 +8,12 @@ namespace Breath.Entities
         {
             Graphic = Image.CreateRectangle(w,h,color);
             Graphic.CenterOrigin();
-            var texto = new Text(text,32);
+            var texto = new Text(text,128);
+            texto.Color = Color.Black;
+            texto.OutlineColor = Color.Yellow;
+            texto.OutlineThickness = 3;
             texto.CenterTextOrigin();
-            
 
-            
             AddGraphic(texto);
         }
         

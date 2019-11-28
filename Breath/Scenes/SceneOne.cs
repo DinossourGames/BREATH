@@ -24,6 +24,7 @@ namespace Breath.Scenes
         private SoundSystem _soundSystem;
         private Coroutine _coroutine;
         private DinoOtter.Color _color1;
+        private List<Square> _squares;
 
 
         public SceneOne(Game game, InputManager manager, Coroutine coroutine, SoundSystem soundSystem) : base(
@@ -33,50 +34,33 @@ namespace Breath.Scenes
             _manager = manager;
             _coroutine = coroutine;
             _soundSystem = soundSystem;
-            _player = new Player(manager, game, 100, game.HalfHeight, 10);
-            _color = Color.Black;
+            _player = new Player(manager, game, game.HalfWidth, game.HalfHeight,8);
 
-            var _ground = new Ground(game.HalfWidth, game.Height - 50, game.Width, 50);
-            var trigger = new Square(900,900,50,50,System.Drawing.Color.Transparent,game,First(),manager);
-            //var trigger2 = new Square(1900,900,50,50,System.Drawing.Color.Transparent,game,LoadSeccond());
-
-            var bg = new Image(BasePath.Images("trees.png"));
-            var bg1 = new Image(BasePath.Images("Sky.png"));
-            var land = new Image(BasePath.Images("land1.png"));
-
-            land.Scale = 10;
-            land.Y = -500;
-            bg1.Scale = 10;
-            bg1.Y = -500;
-            bg.Scale = 10;
-            bg.Y = -600;
-
-
-            AddGraphic(bg1);
-            AddGraphic(bg);
-            AddGraphic(land);
-
-            Add(_ground);
+            CreateSquares();
+            
+            var dialog = new Dialogue(game.HalfWidth,300,600,300,"YAAAAAAY",Color.White);
+            Add(dialog);
             Add(_player);
-            Add(trigger);
-         //   Add(trigger2);
-
-         CameraFocus = _player;
-
-
+            
         }
 
-        IEnumerator LoadSeccond()
+        private void CreateSquares()
         {
-            SceneManager.LoadScene("SceneTwo");
-            yield return null;
+            
+            _squares = new List<Square>();
+            
+            for (int i = 0; i < 9; i++)
+            {
+                var x = 180 + 200 * i;
+                
+                var e = new Square(x,800,180,180,System.Drawing.Color.White,_game,_manager);
+                _squares.Add(e);
+                Add(e);
+            }
+            
         }
-        IEnumerator First()
-        {
 
-        yield return _coroutine.WaitForFrames(1);
 
-        }
         public override void Update()
         {
             
