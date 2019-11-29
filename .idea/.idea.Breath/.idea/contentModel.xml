@@ -24,6 +24,7 @@
             <e p="land2.png" t="Include" />
             <e p="logo.png" t="Include" />
             <e p="main.png" t="Include" />
+            <e p="pallete.jpg" t="Include" />
             <e p="Sky.png" t="Include" />
             <e p="Stars.png" t="Include" />
             <e p="trees.png" t="Include" />
@@ -60,6 +61,9 @@
         <e p="Factories" t="Include" />
         <e p="Fonts" t="Include">
           <e p="BACKTO1982.TTF" t="Include" />
+        </e>
+        <e p="Models" t="Include">
+          <e p="Cor.cs" t="Include" />
         </e>
         <e p="Modules" t="Include">
           <e p="Core.cs" t="Include" />

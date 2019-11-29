@@ -218,10 +218,7 @@ namespace Breath.Entities
         public float JumpForce { get; set; } = 100f;
 
 
-        public override void Render()
-        {
-            Collider.Render();
-        }
+    
 
         private bool locker;
 

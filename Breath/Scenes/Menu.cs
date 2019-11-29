@@ -58,17 +58,17 @@ namespace Breath.Scenes
             _game.Color = Color.FromDraw(System.Drawing.Color.FromArgb(42, 42, 42));
             _selectKey = Key.Return;
             
-           var btnStart = new ButtonEntity(_game.HalfWidth, _game.HalfHeight - 100,null,null,"Start");
-           var btnOptions = new ButtonEntity(_game.HalfWidth, _game.HalfHeight,null,null,"Options");
+           var btnStart = new ButtonEntity(_game.HalfWidth, _game.HalfHeight,null,null,"Start");
+          var btnOptions = new ButtonEntity(_game.HalfWidth, _game.HalfHeight,null,null,"Options");
            var btnQuit = new ButtonEntity(_game.HalfWidth, _game.HalfHeight + 100,null,null,"Quit");
 
-           btnStart.ClickHandler.MouseClick += button => SceneManager.LoadScene("SceneOne"); 
-           btnOptions.ClickHandler.MouseClick += button => SceneManager.LoadScene("Options"); 
+           btnStart.ClickHandler.MouseClick += button => SceneManager.LoadScene("SceneOne");
+           
            btnQuit.ClickHandler.MouseClick += button => _game.Close();
            
            _selectables = new LoopList<ButtonEntity>(new List<ButtonEntity>{btnStart,btnOptions,btnQuit});
            
-           AddMultiple(btnStart, btnOptions, btnQuit);
+           AddMultiple(btnStart, btnQuit);
            
         }
         

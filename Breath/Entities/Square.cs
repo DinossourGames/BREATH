@@ -13,9 +13,9 @@ namespace Breath.Entities
         private readonly BoxCollider _collider;
         private Coroutine _coroutine;
         private InputManager _manager;
-        
-        public event Action SquarePressed = delegate {  }; 
 
+        public bool IsPressed;
+        
         public Square(float x, float y, int w, int h, System.Drawing.Color color,Game game,InputManager manager) : base(x, y)
         {
             _manager = manager;
@@ -28,19 +28,27 @@ namespace Breath.Entities
 
         }
 
-        public void SetActive(bool active,Color color)
+        public void SetColor(Color color)
         {
             Graphic.Color = color;
+            ColorReference = color;
         }
+
+        public Color ColorReference { get; set; }
 
         public override void Update()
         {
-            if (_collider.Overlap(X, Y, Tags.Player)) SquarePressed?.Invoke();
+            if (_collider.Overlap(X, Y, Tags.Player))
+            {
+                IsPressed = true;
+                _manager.SetLightbar(System.Drawing.Color.FromArgb(Graphic.Color.ByteA,Graphic.Color.ByteR,Graphic.Color.ByteG,Graphic.Color.ByteB));
+            }
+            else
+            {
+                IsPressed = false;
+            }
         }
 
-        public override void Render()
-        {
-            Collider.Render();
-        }
+    
     }
 }
