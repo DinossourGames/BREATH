@@ -34,6 +34,7 @@ namespace Breath.Scenes
         private int score = 0;
         private FirebaseClient _client;
         private List<Cor> _colors;
+        private Cor _cor;
 
         public SceneOne(Game game, InputManager manager, Coroutine coroutine, SoundSystem soundSystem) : base(
             "SceneOne")
@@ -41,7 +42,7 @@ namespace Breath.Scenes
             _client = new FirebaseClient("https://projetobobo-ff345.firebaseio.com/");
 
             GetAllColors();
-
+            //soundSystem.Play("main");
             _game = game;
             _manager = manager;
             _coroutine = coroutine;
@@ -127,6 +128,10 @@ namespace Breath.Scenes
             _text.String = "VOCE PERDEU!";
             _text.Color = Color.Red;
             yield return _coroutine.WaitForSeconds(3);
+            _text.String = _cor.Name;
+            _text.Color = Color.FromBytes((byte) _cor.R, (byte) _cor.G, (byte) _cor.B);
+            yield return _coroutine.WaitForSeconds(3);
+
 
             //Add firebase Logic Here
             _client.Child("Highscore").PutAsync(score.ToString());
@@ -159,10 +164,10 @@ namespace Breath.Scenes
 
         private void PickRandomColor()
         {
-            var cor = _colors.RandomElement();
-            _corAtual = Color.FromBytes((byte) cor.R, (byte) cor.G, (byte) cor.B);
+            _cor = _colors.RandomElement();
+            _corAtual = Color.FromBytes((byte) _cor.R, (byte) _cor.G, (byte) _cor.B);
 
-            _text.String = "{outline:3}{shakeX:1}" + cor.Name;
+            _text.String = "{outline:3}{shakeX:1}" + _cor.Name;
             _text.Color = Color.White;
         }
 
