@@ -38,23 +38,19 @@ namespace Breath.Scenes
         public SceneOne(Game game, InputManager manager, Coroutine coroutine, SoundSystem soundSystem) : base(
             "SceneOne")
         {
-            
-
             _client = new FirebaseClient("https://projetobobo-ff345.firebaseio.com/");
-            
+
             GetAllColors();
-            
+
             _game = game;
             _manager = manager;
             _coroutine = coroutine;
             _soundSystem = soundSystem;
             _player = new Player(manager, game, game.HalfWidth, game.HalfHeight, 8);
 
-            _text = new RichText("Seja Bem Vindo Ao jogo", 64);
-            _score = new RichText("0", 64);
-            _text.TextAlign = TextAlign.Center;
-            _text.SetPosition(600, 300);
-
+            _text = new RichText("{shake:4}Seja Bem Vindo Ao CORES", "Fonts/FONTE.TTF", 64);
+            _score = new RichText("Score: 0", "Fonts/BACKTO1982.TTF", 64);
+           
             CreateSquares();
 
 
@@ -64,21 +60,21 @@ namespace Breath.Scenes
             coroutine.Start(MainRoutine());
         }
 
-        private async void  GetAllColors()
+        private async void GetAllColors()
         {
             var result = await _client.Child("Colors").OnceAsync<Cor>();
-            
+
             _colors = new List<Cor>();
-            
+
             foreach (var o in result)
             {
                 _colors.Add(o.Object);
             }
         }
-        
+
         IEnumerator MainRoutine()
         {
-            yield return _coroutine.WaitForSeconds(10);
+            yield return _coroutine.WaitForSeconds(5);
 
             while (true)
             {
@@ -95,26 +91,45 @@ namespace Breath.Scenes
 
                 yield return _coroutine.WaitForSeconds(7);
 
+                _manager.Rumble(60, 60);
+                yield return _coroutine.WaitForSeconds(1);
+                _manager.Rumble(0, 0);
+                yield return _coroutine.WaitForSeconds(.8f);
+                _manager.Rumble(200, 200);
+                yield return _coroutine.WaitForSeconds(.8f);
+                _manager.Rumble(0, 0);
+                yield return _coroutine.WaitForSeconds(1f);
+                _manager.Rumble(255, 255);
+                yield return _coroutine.WaitForSeconds(.5f);
+                _manager.Rumble(0, 0);
+
+
+
+
                 foreach (var square in _squares)
                 {
-                    if(square.IsPressed && square.ColorReference == _corAtual)
+                    if (square.IsPressed && square.ColorReference == _corAtual)
                         score++;
                     if (square.IsPressed && square.ColorReference != _corAtual)
-                       SaveAndReset();
-                    
-                    _score.String = score.ToString();
+                        yield return SaveAndReset();
+
+                    _score.String = $"SCORE: {score}";
                 }
 
-                yield return _coroutine.WaitForSeconds(5);
-
-               
+                _manager.Rumble(0, 0);
             }
         }
 
-        private  void SaveAndReset()
+        private IEnumerator SaveAndReset()
         {
+            _manager.Rumble(0, 0);
+
+            _text.String = "VOCE PERDEU!";
+            _text.Color = Color.Red;
+            yield return _coroutine.WaitForSeconds(3);
+
             //Add firebase Logic Here
-             _client.Child("Highscore").PutAsync(score.ToString());
+            _client.Child("Highscore").PutAsync(score.ToString());
             _coroutine.StopAll();
             SceneManager.LoadScene("SceneOne");
         }
@@ -128,21 +143,32 @@ namespace Breath.Scenes
                 if (i == number)
                     _squares[i].SetColor(_corAtual);
                 else
-                    _squares[i].SetColor(Color.Random);
+                {
+                    var cor = _colors.RandomElement();
+                    var core = Color.FromBytes((byte) cor.R, (byte) cor.G, (byte) cor.B);
+                    while (core == _corAtual || _squares.Any( i => i.ColorReference == core))
+                    {
+                        cor = _colors.RandomElement();
+                        core = Color.FromBytes((byte) cor.R, (byte) cor.G, (byte) cor.B);
+                    }
+
+                    _squares[i].SetColor(core);
+                }
             }
         }
 
         private void PickRandomColor()
         {
             var cor = _colors.RandomElement();
-           _corAtual = Color.FromBytes((byte)cor.R,(byte)cor.G,(byte)cor.B); 
+            _corAtual = Color.FromBytes((byte) cor.R, (byte) cor.G, (byte) cor.B);
 
-            _text.String = cor.Name;
-            _text.Color = Color.Random;
+            _text.String = "{outline:3}{shakeX:1}" + cor.Name;
+            _text.Color = Color.White;
         }
 
         private void Reset()
         {
+            _text.Color = Color.White;
             _squares.ForEach(i => i.SetColor(Color.FromDraw(System.Drawing.Color.White)));
             _manager.SetLightbar(System.Drawing.Color.White);
         }
@@ -153,7 +179,7 @@ namespace Breath.Scenes
 
             for (int i = 0; i < 9; i++)
             {
-                var x = 180 + 200 * i;
+                var x = 160 + 200 * i;
 
                 var e = new Square(x, 800, 180, 180, System.Drawing.Color.White, _game, _manager);
                 _squares.Add(e);
@@ -164,6 +190,16 @@ namespace Breath.Scenes
 
         public override void Update()
         {
+            _score.TextAlign = TextAlign.Center;
+            _text.TextAlign = TextAlign.Center;
+            _text.SetPosition(_game.HalfWidth, 300);
+            _score.SetPosition(_game.HalfWidth, 200);
+            _score.CenterOrigin();
+            _text.CenterOrigin();
+            _text.DefaultOutlineColor = Color.White;
+            _text.DefaultOutlineThickness = 3;
+            _text.Refresh();
+            _score.Refresh();
         }
 
 

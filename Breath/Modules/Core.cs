@@ -12,12 +12,12 @@ namespace Breath.Modules
     {
         public override void Load()
         {
-            var game = new Game("BREATH",1920,1080,60,false)
+            var game = new Game("BREATH",1920,1080,30,true)
             {
                 Color = Color.FromDraw(System.Drawing.Color.FromArgb(52, 56, 69)),
-                MouseVisible = true,
+                MouseVisible = false,
                 FirstScene = SceneManager.FirstScene,
-                //EnableQuitButton = false
+                EnableQuitButton = false
             };
             
             Bind<Game>().ToConstant(game);

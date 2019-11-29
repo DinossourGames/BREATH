@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
-    <e p="C:\Users\felip\.Rider2019.2\system\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\felip\.Rider2019.2\system\resharper-host\local\Transient\ReSharperHost\v192\SolutionCaches\_Breath.282325993.00" t="ExcludeRecursive" />
-    <e p="C:\Users\felip\Documents\Projetos\Breath" t="IncludeFlat">
+    <e p="C:\Users\TonyStark\.Rider2019.2\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\TonyStark\.Rider2019.2\system\resharper-host\local\Transient\ReSharperHost\v192\SolutionCaches\_Breath.-87670708.00" t="ExcludeRecursive" />
+    <e p="C:\Users\TonyStark\RiderProjects\Breath" t="IncludeFlat">
       <e p="Breath" t="IncludeRecursive">
         <e p="Abstractions" t="Include">
           <e p="Classes" t="Include">
@@ -61,6 +61,7 @@
         <e p="Factories" t="Include" />
         <e p="Fonts" t="Include">
           <e p="BACKTO1982.TTF" t="Include" />
+          <e p="FONTE.TTF" t="Include" />
         </e>
         <e p="Models" t="Include">
           <e p="Cor.cs" t="Include" />
@@ -83,7 +84,6 @@
           <e p="Menu.cs" t="Include" />
           <e p="Options.cs" t="Include" />
           <e p="SceneOne.cs" t="Include" />
-          <e p="SceneTwo.cs" t="Include" />
         </e>
         <e p="Shaders" t="Include">
           <e p="Frags" t="Include">
